@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace MB.Algodat
 {
@@ -110,6 +111,28 @@ namespace MB.Algodat
         }
 
         #endregion
+
+
+        public static Range<T> Parse(string p)
+        {
+            var parts = p
+                .Split(new[] { " to " }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(pp => (T)Convert.ChangeType(pp, typeof(T)))
+                .ToArray();
+
+            if (parts.Length < 1 || parts.Length > 2)
+                throw new ArgumentException(string.Format("cannot parse given range ({0}), it doesn't have one or two parts", p));
+
+            if (parts.Length == 1)
+            {
+                return new Range<T>(parts[0]);
+            }
+            else
+            {
+                return new Range<T>(parts[0], parts[1]);
+            }
+
+        }
     }
 
     /// <summary>
