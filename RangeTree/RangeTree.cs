@@ -188,6 +188,22 @@ namespace MB.Algodat
             _items = new List<T>();
             _isInSync = true;
         }
+
+        public TKey Max
+        {
+            get
+            {
+                return _root.Max;
+            }
+        }
+
+        public TKey Min
+        {
+            get
+            {
+                return _root.Min;
+            }
+        }
     }
 
     

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MB.Algodat
 {
@@ -56,7 +57,7 @@ namespace MB.Algodat
             // the median is used as center value
             _center = endPoints[endPoints.Count / 2];
             _items = new List<T>();
-            
+
             var left = new List<T>();
             var right = new List<T>();
 
@@ -115,7 +116,7 @@ namespace MB.Algodat
                 results.AddRange(_leftNode.Query(value));
             else if (value.CompareTo(_center) > 0 && _rightNode != null)
                 results.AddRange(_rightNode.Query(value));
-            
+
             return results;
         }
 
@@ -145,8 +146,34 @@ namespace MB.Algodat
                 results.AddRange(_leftNode.Query(range));
             if (range.To.CompareTo(_center) > 0 && _rightNode != null)
                 results.AddRange(_rightNode.Query(range));
-            
+
             return results;
+        }
+
+        public TKey Max
+        {
+            get
+            {
+                if (_rightNode != null)
+                    return _rightNode.Max;
+                else if (_items != null)
+                    return _items.Max(i => i.Range.To);
+                else
+                    return default(TKey);
+            }
+        }
+
+        public TKey Min
+        {
+            get
+            {
+                if (_leftNode != null)
+                    return _leftNode.Max;
+                else if (_items != null)
+                    return _items.Max(i => i.Range.From);
+                else
+                    return default(TKey);
+            }
         }
     }
 }
