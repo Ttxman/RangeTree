@@ -136,8 +136,10 @@ namespace MB.Algodat
         {
             if (_isInSync)
                 return;
-
-            _root = new RangeTreeNode<TKey, T>(_items, _rangeComparer);
+            if(_items.Count > 0)
+                _root = new RangeTreeNode<TKey, T>(_items, _rangeComparer);
+            else
+                _root = new RangeTreeNode<TKey, T>(_rangeComparer);
             _isInSync = true;
         }
 
