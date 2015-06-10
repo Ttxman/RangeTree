@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 
 namespace MB.Algodat
@@ -113,11 +114,13 @@ namespace MB.Algodat
         #endregion
 
 
-        public static Range<T> Parse(string p)
+        public static Range<T> Parse(string p, IFormatProvider provider = null)
         {
+
+            provider = provider ?? CultureInfo.CurrentCulture;
             var parts = p
                 .Split(new[] { " to " }, StringSplitOptions.RemoveEmptyEntries)
-                .Select(pp => (T)Convert.ChangeType(pp, typeof(T)))
+                .Select(pp => (T)Convert.ChangeType(pp, typeof(T), provider))
                 .ToArray();
 
             if (parts.Length < 1 || parts.Length > 2)
