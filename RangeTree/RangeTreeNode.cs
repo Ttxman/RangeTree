@@ -168,7 +168,7 @@ namespace MB.Algodat
             get
             {
                 if (_leftNode != null)
-                    return _leftNode.Max;
+                    return _leftNode.Min;
                 else if (_items != null)
                     return _items.Max(i => i.Range.From);
                 else
